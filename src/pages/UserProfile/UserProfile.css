@@ -1,0 +1,88 @@
+.user-profile {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.user-profile__header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 1rem;
+}
+
+.user-profile__header h1 {
+  font-size: 2rem;
+  color: #333;
+  margin: 0;
+}
+
+.user-profile__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.user-profile__section {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile__section h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0 0 1.5rem 0;
+}
+
+.user-profile__info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-item label {
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.info-item p {
+  font-size: 1rem;
+  color: #333;
+  margin: 0;
+}
+
+.locations-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.locations-list li {
+  margin-bottom: 0.5rem;
+}
+
+.locations-list li:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .user-profile {
+    padding: 1rem;
+  }
+
+  .user-profile__info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-profile__section {
+    padding: 1rem;
+  }
+}

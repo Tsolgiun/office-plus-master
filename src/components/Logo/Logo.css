@@ -1,0 +1,33 @@
+.logo {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+/* Default size classes that can be used with the Logo component */
+.logo-sm {
+  width: 120px;
+}
+
+.logo-md {
+  width: 180px;
+}
+
+.logo-lg {
+  width: 240px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .logo-sm {
+    width: 100px;
+  }
+
+  .logo-md {
+    width: 150px;
+  }
+
+  .logo-lg {
+    width: 200px;
+  }
+}

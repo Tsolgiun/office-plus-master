@@ -1,0 +1,250 @@
+.property-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8rem 1rem 2rem; /* Increased top padding to account for header */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+  transition: color 0.2s ease;
+}
+
+.back-button:hover {
+  color: #333;
+}
+
+.property-detail-header {
+  margin-bottom: 2rem;
+}
+
+.property-detail-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.property-price {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.property-detail-image {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.property-detail-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.property-detail-image img:hover {
+  transform: scale(1.02);
+}
+
+.property-detail-info {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.info-section {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  transition: box-shadow 0.3s ease;
+}
+
+.info-section:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info-section h2 {
+  margin: 0 0 1.25rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.info-section h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #444;
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.specs-grid div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #666;
+  font-size: 1rem;
+}
+
+.building-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #f8fafc;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  color: #666;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.amenity {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #666;
+  font-size: 1rem;
+  transition: transform 0.2s;
+}
+
+.amenity:hover {
+  transform: translateY(-2px);
+}
+
+.availability {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background: #edf2f7;
+  color: #666;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.availability.immediate {
+  background: #c6f6d5;
+  color: #2f855a;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.25rem;
+}
+
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  color: #e53e3e;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1.25rem;
+}
+
+/* Sidebar for Booking or Additional Info */
+.booking-sidebar {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+}
+
+.booking-sidebar h2 {
+  margin: 0 0 1.25rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.booking-sidebar button {
+  width: 100%;
+  padding: 1rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.booking-sidebar button:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .property-detail-container {
+    padding: 6rem 1rem 2rem; /* Adjusted top padding for mobile */
+  }
+
+  .property-detail-header h1 {
+    font-size: 2rem;
+  }
+
+  .property-price {
+    font-size: 1.5rem;
+  }
+
+  .property-detail-image {
+    grid-template-columns: 1fr;
+  }
+
+  .property-detail-image img {
+    height: 200px;
+  }
+
+  .property-detail-info {
+    grid-template-columns: 1fr;
+  }
+
+  .info-section {
+    padding: 1rem;
+  }
+
+  .feature,
+  .amenity {
+    padding: 0.5rem 1rem;
+  }
+}
