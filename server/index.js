@@ -1,3 +1,6 @@
+// Environment variables
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -9,7 +12,7 @@ app.use(express.json());
 
 // MongoDB Connection
 console.log('Attempting to connect to MongoDB...');
-mongoose.connect('mongodb://127.0.0.1:27017/office-plus', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/office-plus', {
 }).then(() => {
   console.log('Successfully connected to MongoDB');
   console.log('Database name: office-plus');
@@ -27,8 +30,6 @@ mongoose.connection.on('disconnected', () => {
   console.log('MongoDB disconnected');
 });
 
-// Environment variables
-require('dotenv').config();
 
 if (!process.env.JWT_SECRET) {
   console.error('JWT_SECRET environment variable is required!');
