@@ -3,7 +3,35 @@ const router = express.Router();
 const fetch = require('node-fetch');
 
 const API_URL = 'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation';
-const API_KEY = 'sk-981ee789bce14e53a9a70068a71ee430';
+const API_KEY = process.env.DASHSCOPE_API_KEY;
+
+if (!API_KEY) {
+    console.error('DASHSCOPE_API_KEY not found in environment variables');
+    process.exit(1);
+}
+
+// Configure CORS headers
+router.use((req, res, next) => {
+    const allowedOrigins = [
+        process.env.FRONTEND_URL || 'http://localhost:3000',
+        'https://office-plus.netlify.app'
+    ];
+    const origin = req.headers.origin;
+    
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    
+    next();
+});
 
 // Store chat history per session
 const sessionMessages = new Map();

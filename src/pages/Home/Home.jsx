@@ -122,20 +122,20 @@ const Home = () => {
     }
   };
 
-  const extractPriceAmount = (priceString) => {
-    const match = priceString.match(/(\d+\.?\d*)万/);
-    if (match) {
-      return parseFloat(match[1]) * 10000;
-    }
-    return 0;
+  const extractPriceAmount = (rent_range) => {
+    if (!rent_range) return 0;
+    // Format will be like "60-80" or "100-300"
+    const parts = rent_range.split('-');
+    // Return the lower bound for filtering
+    return parseFloat(parts[0]) * 10000;
   };
 
-  const extractSquareAmount = (sizeString) => {
-    const match = sizeString.match(/(\d+,?\d*)/);
-    if (match) {
-      return parseFloat(match[1].replace(',', ''));
-    }
-    return 0;
+  const extractSquareAmount = (area_range) => {
+    if (!area_range) return 0;
+    // Format will be like "100-200" or "300-500"
+    const parts = area_range.split('-');
+    // Return the lower bound for filtering
+    return parseFloat(parts[0]);
   };
 
   return (
@@ -187,12 +187,12 @@ const Home = () => {
               <>
                 {properties
                   .filter(property =>
-                    (minPrice === 0 || extractPriceAmount(property.price) >= minPrice) &&
-                    (maxPrice === Infinity || extractPriceAmount(property.price) <= maxPrice)
+                    (minPrice === 0 || extractPriceAmount(property.rent_range) >= minPrice) &&
+                    (maxPrice === Infinity || extractPriceAmount(property.rent_range) <= maxPrice)
                   )
                   .filter(property =>
-                    (minSquare === 0 || extractSquareAmount(property.size) >= minSquare) &&
-                    (maxSquare === Infinity || extractSquareAmount(property.size) <= maxSquare)
+                    (minSquare === 0 || extractSquareAmount(property.area_range) >= minSquare) &&
+                    (maxSquare === Infinity || extractSquareAmount(property.area_range) <= maxSquare)
                   )
                   .map(property => (
                     <PropertyCard key={property.id} property={property} />

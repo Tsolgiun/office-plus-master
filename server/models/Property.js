@@ -1,114 +1,82 @@
 const mongoose = require('mongoose');
 
 const propertySchema = new mongoose.Schema({
-  title: {
-    type: String,
+  buildingId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Building',
     required: true
   },
-  description: {
+  rent_range: {
     type: String,
-    required: true
+    required: false
   },
-  price: {
-    amount: {
-      type: Number,
-      required: true
+  area_range: {
+    type: String,
+    required: false
+  },
+  commission: {
+    type: String,
+    required: false
+  },
+  commission_basis: {
+    type: String,
+    enum: ['成交制', '报备制'],
+    required: false
+  },
+  commission_verification: {
+    type: String,
+    required: false
+  },
+  communication: {
+    date: {
+      type: Date,
+      required: false
     },
-    currency: {
+    method: {
       type: String,
-      default: 'USD'
+      required: false
     },
-    period: {
+    follow_up_result: {
       type: String,
-      enum: ['monthly', 'yearly'],
-      default: 'monthly'
+      required: false
     }
   },
-  location: {
-    address: {
-      type: String,
-      required: true
-    },
-    city: {
-      type: String,
-      required: true
-    },
-    district: {
-      type: String,
-      required: true
-    },
-    zipCode: String,
-    coordinates: {
-      latitude: Number,
-      longitude: Number
-    }
-  },
-  specifications: {
-    size: {
-      value: {
-        type: Number,
-        required: true
-      },
-      unit: {
-        type: String,
-        enum: ['m²', 'sq.m'],
-        default: 'm²'
-      }
-    },
-    capacity: {
-      type: Number,
-      required: true
-    },
-    type: {
-      type: String,
-      required: true
-    },
-    floor: Number,
-    totalFloors: Number
+  notes_and_control: {
+    type: String,
+    required: false
   },
   amenities: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Amenity'
   }],
-  media: {
-    mainImage: {
+  location: {
+    address: {
       type: String,
-      required: true
-    },
-    images: [String],
-    virtualTour: String,
-    floorPlan: String
-  },
-  availability: {
-    status: {
-      type: String,
-      enum: ['immediate', 'from-date'],
-      required: true
-    },
-    availableFrom: Date,
-    minimumLeaseTerm: {
-      type: Number,
-      default: 1
+      required: false
     }
   },
-  features: [String],
-  buildingId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Building'
+  media: {
+    images: [String]
+  },
+  specifications: {
+    type: {
+      type: String,
+      required: false
+    }
   },
   status: {
     type: String,
-    enum: ['active', 'leased', 'maintenance'],
+    enum: ['active', 'inactive'],
     default: 'active'
   }
 }, {
   timestamps: true
 });
 
-// Add indexes for common queries
-propertySchema.index({ 'location.city': 1, 'location.district': 1 });
-propertySchema.index({ 'specifications.type': 1 });
-propertySchema.index({ status: 1 });
-propertySchema.index({ 'price.amount': 1 });
+propertySchema.index({ 'buildingId': 1 });
+propertySchema.index({ 'commission_basis': 1 });
+propertySchema.index({ 'status': 1 });
+propertySchema.index({ 'rent_range': 1 });
+propertySchema.index({ 'area_range': 1 });
 
 module.exports = mongoose.model('Property', propertySchema);

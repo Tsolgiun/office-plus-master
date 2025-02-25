@@ -38,7 +38,7 @@ router.get('/', async (req, res) => {
       .populate({
         path: 'buildingId',
         model: Building,
-        select: 'name facilities parkingAvailable security'
+        select: '_id name parkingAvailable security'
       })
       .populate({
         path: 'amenities',
@@ -56,24 +56,32 @@ router.get('/', async (req, res) => {
     // Transform the response to match the frontend needs
     const transformedProperties = properties.map(property => ({
       id: property._id,
-      title: property.title,
+      title: property.buildingId?.name || '未命名楼宇',
       description: property.description,
-      price: `$${property.price.amount.toLocaleString()}/${property.price.period}`,
-      location: property.location.address,
-      image: property.media.mainImage,
-      size: `${property.specifications.size.value} ${property.specifications.size.unit}`,
-      type: property.specifications.type,
-      capacity: property.specifications.capacity,
-      amenities: property.amenities.map(amenity => amenity.name),
-      availability: property.availability.status === 'immediate' 
-        ? 'Immediate'
-        : `From ${new Date(property.availability.availableFrom).toLocaleDateString()}`,
-      building: {
-        name: property.buildingId.name,
-        facilities: property.buildingId.facilities,
+      price: property.rent_range || '价格待询',
+      location: property.location?.address || '',
+      image: property.media?.mainImage || '',
+      size: property.area_range || '面积未指定',
+      type: property.specifications?.type || '办公空间',
+      capacity: property.specifications?.capacity || 0,
+      amenities: property.amenities?.map(amenity => amenity.name) || [],
+      communication: {
+        date: property.communication?.date,
+        method: property.communication?.method,
+        follow_up_result: property.communication?.follow_up_result
+      },
+      commission: property.commission ? {
+        value: property.commission,
+        basis: property.commission_basis,
+        verification: property.commission_verification
+      } : null,
+      notes: property.notes_and_control,
+      building: property.buildingId ? {
+        id: property.buildingId._id,
+        name: property.buildingId.name || '未命名楼宇',
         parkingAvailable: property.buildingId.parkingAvailable,
         security: property.buildingId.security
-      }
+      } : null
     }));
 
     // Return paginated response
@@ -103,7 +111,7 @@ router.get('/:id', async (req, res) => {
       .populate({
         path: 'buildingId',
         model: Building,
-        select: 'name facilities parkingAvailable security'
+        select: '_id name parkingAvailable security'
       })
       .populate({
         path: 'amenities',
@@ -117,24 +125,32 @@ router.get('/:id', async (req, res) => {
 
     const transformedProperty = {
       id: property._id,
-      title: property.title,
+      title: property.buildingId?.name || '未命名楼宇',
       description: property.description,
-      price: `$${property.price.amount.toLocaleString()}/${property.price.period}`,
-      location: property.location.address,
-      image: property.media.mainImage,
-      size: `${property.specifications.size.value} ${property.specifications.size.unit}`,
-      type: property.specifications.type,
-      capacity: property.specifications.capacity,
-      amenities: property.amenities.map(amenity => amenity.name),
-      availability: property.availability.status === 'immediate' 
-        ? 'Immediate'
-        : `From ${new Date(property.availability.availableFrom).toLocaleDateString()}`,
-      building: {
-        name: property.buildingId.name,
-        facilities: property.buildingId.facilities,
+      price: property.rent_range || '价格待询',
+      location: property.location?.address || '',
+      image: property.media?.mainImage || '',
+      size: property.area_range || '面积未指定',
+      type: property.specifications?.type || '办公空间',
+      capacity: property.specifications?.capacity || 0,
+      amenities: property.amenities?.map(amenity => amenity.name) || [],
+      communication: {
+        date: property.communication?.date,
+        method: property.communication?.method,
+        follow_up_result: property.communication?.follow_up_result
+      },
+      commission: property.commission ? {
+        value: property.commission,
+        basis: property.commission_basis,
+        verification: property.commission_verification
+      } : null,
+      notes: property.notes_and_control,
+      building: property.buildingId ? {
+        id: property.buildingId._id,
+        name: property.buildingId.name || '未命名楼宇',
         parkingAvailable: property.buildingId.parkingAvailable,
         security: property.buildingId.security
-      }
+      } : null
     };
 
     res.json(transformedProperty);
